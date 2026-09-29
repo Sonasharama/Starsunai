@@ -4,17 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>StarSunAI - AI Voice</title>
+
 <style>
-body{margin:0;font-family:Arial;background:#f5f6fa;color:#111}
-header{background:#fff;padding:25px;font-size:32px;font-weight:bold;color:#6d28d9}
-nav{background:#111827;padding:15px;overflow:auto;white-space:nowrap}
-nav a{color:white;text-decoration:none;margin-right:18px}
-main{max-width:900px;margin:30px auto;padding:20px}
-.card{background:white;padding:25px;border-radius:20px}
-textarea{width:100%;height:180px;padding:15px;font-size:16px;box-sizing:border-box}
-button{margin-top:15px;width:100%;padding:15px;background:#6d28d9;color:white;border:0;border-radius:10px;font-size:18px}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f6fa;
+color:#111;
+}
+
+header{
+background:#fff;
+padding:25px;
+font-size:32px;
+font-weight:bold;
+color:#6d28d9;
+}
+
+nav{
+background:#111827;
+padding:15px;
+overflow:auto;
+white-space:nowrap;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-right:18px;
+}
+
+main{
+max-width:900px;
+margin:30px auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:22px;
+box-shadow:0 5px 20px #ddd;
+}
+
+textarea{
+width:100%;
+height:190px;
+padding:15px;
+font-size:18px;
+box-sizing:border-box;
+border:1px solid #ccc;
+border-radius:12px;
+resize:vertical;
+}
+
+select{
+width:100%;
+padding:14px;
+margin-top:12px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:17px;
+}
+
+button{
+margin-top:15px;
+width:100%;
+padding:16px;
+background:#6d28d9;
+color:white;
+border:0;
+border-radius:12px;
+font-size:18px;
+font-weight:bold;
+}
+
+button.stop{
+background:#dc2626;
+}
+
+#status{
+margin-top:20px;
+padding:15px;
+background:#f3f4f6;
+border-radius:10px;
+display:none;
+}
+
+@media(max-width:600px){
+main{
+padding:15px;
+}
+.card{
+padding:22px;
+}
+}
 </style>
 </head>
+
 <body>
 
 <header>StarSunAI</header>
@@ -28,24 +115,126 @@ button{margin-top:15px;width:100%;padding:15px;background:#6d28d9;color:white;bo
 </nav>
 
 <main>
+
 <div class="card">
+
 <h1>🎙️ AI Voice Creator</h1>
+
 <p>अपनी Script यहाँ लिखें</p>
 
-<textarea id="text" placeholder="अपनी script लिखें..."></textarea>
+<textarea
+id="text"
+placeholder="अपनी हिंदी Script लिखें..."
+></textarea>
 
-<button onclick="makeVoice()">Generate Voice</button>
+<select id="voice">
+<option value="hi">🇮🇳 Hindi Voice</option>
+<option value="en">🇺🇸 English Voice</option>
+</select>
 
-<p id="msg"></p>
+<select id="rate">
+<option value="0.8">धीमी आवाज़</option>
+<option value="1" selected>Normal</option>
+<option value="1.2">तेज़ आवाज़</option>
+</select>
+
+<button onclick="generateVoice()">
+🎙️ Generate & Play Voice
+</button>
+
+<button class="stop" onclick="stopVoice()">
+⏹️ Stop Voice
+</button>
+
+<div id="status"></div>
+
 </div>
+
 </main>
 
 <script>
-function makeVoice(){
-let t=document.getElementById("text").value;
-if(!t){alert("पहले Script लिखें");return;}
-document.getElementById("msg").innerText="Script तैयार है।";
+
+let speech = window.speechSynthesis;
+
+function generateVoice(){
+
+let text=document.getElementById("text").value.trim();
+
+if(!text){
+alert("पहले अपनी Script लिखें।");
+return;
 }
+
+speech.cancel();
+
+let language=document.getElementById("voice").value;
+let rate=parseFloat(document.getElementById("rate").value);
+
+let utterance=new SpeechSynthesisUtterance(text);
+
+if(language==="hi"){
+utterance.lang="hi-IN";
+}else{
+utterance.lang="en-US";
+}
+
+utterance.rate=rate;
+utterance.pitch=1;
+
+let voices=speech.getVoices();
+
+let selectedVoice=null;
+
+if(language==="hi"){
+selectedVoice=voices.find(v =>
+v.lang.toLowerCase().includes("hi")
+);
+}else{
+selectedVoice=voices.find(v =>
+v.lang.toLowerCase().includes("en")
+);
+}
+
+if(selectedVoice){
+utterance.voice=selectedVoice;
+}
+
+let status=document.getElementById("status");
+
+status.style.display="block";
+status.innerText="🔊 Voice तैयार हो रही है...";
+
+utterance.onstart=function(){
+status.innerText="🔊 Voice चल रही है...";
+};
+
+utterance.onend=function(){
+status.innerText="✅ Voice पूरी हो गई।";
+};
+
+utterance.onerror=function(){
+status.innerText="❌ Voice चलाने में समस्या हुई।";
+};
+
+speech.speak(utterance);
+
+}
+
+function stopVoice(){
+
+speech.cancel();
+
+let status=document.getElementById("status");
+
+status.style.display="block";
+status.innerText="⏹️ Voice रोक दी गई।";
+
+}
+
+window.speechSynthesis.onvoiceschanged=function(){
+speech.getVoices();
+};
+
 </script>
 
 </body>
