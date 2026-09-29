@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StarSunAI - Character Creator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6fa;
+    color:#171717;
+}
+
+/* HEADER */
+.header{
+    height:115px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    border-bottom:1px solid #ddd;
+}
+
+.logo{
+    font-size:40px;
+    font-weight:800;
+    color:#6d28d9;
+}
+
+.logo span{
+    color:#111827;
+}
+
+.profile{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#6d28d9;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+/* NAVIGATION */
+.nav{
+    background:#111827;
+    min-height:78px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 15px;
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#e5e7eb;
+    padding:17px 20px;
+    border-radius:15px;
+    font-size:20px;
+}
+
+.nav a.active{
+    background:#6d28d9;
+    color:#fff;
+}
+
+/* MAIN */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 25px 60px;
+}
+
+.back{
+    display:inline-block;
+    text-decoration:none;
+    color:#6d28d9;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.title{
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#6b7280;
+    font-size:20px;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+/* CARD */
+.card{
+    background:#fff;
+    border:1px solid #e2e2e2;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+label{
+    display:block;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+textarea{
+    width:100%;
+    min-height:160px;
+    resize:vertical;
+    border:1px solid #d1d5db;
+    border-radius:15px;
+    padding:18px;
+    font-size:17px;
+    outline:none;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+textarea:focus{
+    border-color:#6d28d9;
+    box-shadow:0 0 0 3px rgba(109,40,217,0.12);
+}
+
+/* OPTIONS */
+.options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:25px;
+}
+
+.option{
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:18px;
+}
+
+select{
+    width:100%;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:16px;
+    background:#fff;
+}
+
+/* BUTTON */
+.generate{
+    width:100%;
+    margin-top:25px;
+    border:none;
+    background:#6d28d9;
+    color:#fff;
+    padding:18px;
+    border-radius:15px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.generate:hover{
+    background:#5b21b6;
+}
+
+/* PREVIEW */
+.preview{
+    margin-top:25px;
+    min-height:300px;
+    border:2px dashed #d1d5db;
+    border-radius:18px;
+    background:#f9fafb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+    color:#6b7280;
+}
+
+.character-card{
+    width:100%;
+}
+
+.character-icon{
+    width:120px;
+    height:120px;
+    margin:0 auto 20px;
+    border-radius:50%;
+    background:#e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+}
+
+.character-name{
+    color:#111827;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.character-details{
+    color:#4b5563;
+    font-size:17px;
+    line-height:1.8;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+
+    .header{
+        height:100px;
+        padding:0 20px;
+    }
+
+    .logo{
+        font-size:30px;
+    }
+
+    .profile{
+        width:50px;
+        height:50px;
+        font-size:20px;
+    }
+
+    .nav{
+        min-height:70px;
+    }
+
+    .nav a{
+        font-size:17px;
+        padding:14px 16px;
+    }
+
+    .container{
+        padding:25px 18px 50px;
+    }
+
+    .title{
+        font-size:32px;
+    }
+
+    .subtitle{
+        font-size:18px;
+    }
+
+    .options{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+
+    <div class="logo">
+        StarSun<span>AI</span>
+    </div>
+
+    <div class="profile">
+        S
+    </div>
+
+</header>
+
+
+<!-- NAVIGATION -->
+<nav class="nav">
+
+    <a href="index.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="image.html">
+        🖼️ AI Image
+    </a>
+
+    <a href="video.html">
+        🎬 AI Video
+    </a>
+
+    <a href="story.html">
+        ✍️ AI Story
+    </a>
+
+    <a href="voice.html">
+        🎙️ AI Voice
+    </a>
+
+    <a href="character.html" class="active">
+        👤 Character
+    </a>
+
+    <a href="background.html">
+        🌄 Background
+    </a>
+
+</nav>
+
+
+<!-- MAIN -->
+<main class="container">
+
+    <a href="index.html" class="back">
+        ← Dashboard पर वापस जाएँ
+    </a>
+
+    <h1 class="title">
+        👤 Character Creator
+    </h1>
+
+    <p class="subtitle">
+        अपनी कहानी, वीडियो और images के लिए unique characters तैयार करें।
+    </p>
+
+
+    <section class="card">
+
+        <!-- CHARACTER DESCRIPTION -->
+        <label for="characterPrompt">
+            Character Description
+        </label>
+
+        <textarea
+            id="characterPrompt"
+            placeholder="उदाहरण: 35 साल का भारतीय किसान, मजबूत शरीर, सफेद कुर्ता, धोती, बड़ी मूंछ, सिर पर साफा..."
+        ></textarea>
+
+
+        <!-- OPTIONS -->
+        <div class="options">
+
+            <div class="option">
+
+                <label>
+                    Character Type
+                </label>
+
+                <select id="characterType">
+
+                    <option>Indian Male</option>
+                    <option>Indian Female</option>
+                    <option>Child</option>
+                    <option>Old Man</option>
+                    <option>Old Woman</option>
+                    <option>Royal Character</option>
+                    <option>Fantasy Character</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    Visual Style
+                </label>
+
+                <select id="visualStyle">
+
+                    <option>Realistic</option>
+                    <option>Ultra Realistic</option>
+                    <option>Cinematic</option>
+                    <option>Digital Art</option>
+                    <option>2D Animation</option>
+                    <option>3D Animation</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    Character Age
+                </label>
+
+                <select id="age">
+
+                    <option>Child</option>
+                    <option>Teenager</option>
+                    <option>Young Adult</option>
+                    <option>Adult</option>
+                    <option>Middle Aged</option>
+                    <option>Elderly</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    Character Outfit
+                </label>
+
+                <select id="outfit">
+
+                    <option>Traditional Indian</option>
+                    <option>Modern Casual</option>
+                    <option>Royal Indian</option>
+                    <option>Farmer</option>
+                    <option>Business</option>
+                    <option>Warrior</option>
+                    <option>Custom Outfit</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- GENERATE -->
+        <button class="generate" onclick="createCharacter()">
+            ✨ Create Character
+        </button>
+
+
+        <!-- PREVIEW -->
+        <div class="preview" id="preview">
+
+            <div>
+
+                <div style="font-size:65px;">
+                    👤
+                </div>
+
+                <br>
+
+                <strong>
+                    आपका Character यहाँ दिखाई देगा
+                </strong>
+
+                <br><br>
+
+                Character description लिखकर
+                <b>Create Character</b> दबाएँ।
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+function createCharacter(){
+
+    const prompt =
+        document.getElementById("characterPrompt")
+        .value
+        .trim();
+
+    const type =
+        document.getElementById("characterType")
+        .value;
+
+    const style =
+        document.getElementById("visualStyle")
+        .value;
+
+    const age =
+        document.getElementById("age")
+        .value;
+
+    const outfit =
+        document.getElementById("outfit")
+        .value;
+
+    const preview =
+        document.getElementById("preview");
+
+
+    if(!prompt){
+
+        preview.innerHTML = `
+
+            <div>
+
+                <div style="font-size:50px;">
+                    ⚠️
+                </div>
+
+                <br>
+
+                पहले Character Description लिखिए।
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    preview.innerHTML = `
+
+        <div class="character-card">
+
+            <div class="character-icon">
+                👤
+            </div>
+
+            <div class="character-name">
+                Character Preview
+            </div>
+
+            <div class="character-details">
+
+                <b>Type:</b> ${type}
+
+                <br>
+
+                <b>Age:</b> ${age}
+
+                <br>
+
+                <b>Style:</b> ${style}
+
+                <br>
+
+                <b>Outfit:</b> ${outfit}
+
+                <br><br>
+
+                <b>Description:</b>
+
+                <br>
+
+                ${prompt}
+
+                <br><br>
+
+                <small>
+                    वास्तविक AI Character Image generation के लिए
+                    बाद में AI Image API जोड़ी जाएगी।
+                </small>
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+  </html>
