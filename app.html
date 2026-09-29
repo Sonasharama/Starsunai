@@ -204,11 +204,6 @@ select{
   background:#5b21b6;
 }
 
-.btn.secondary{
-  background:#e5e7eb;
-  color:#111827;
-}
-
 .result{
   margin-top:20px;
   padding:20px;
@@ -229,6 +224,7 @@ select{
 }
 
 @media(max-width:900px){
+
   .tools{
     grid-template-columns:repeat(2,1fr);
   }
@@ -294,6 +290,10 @@ select{
   .tool p{
     font-size:12px;
   }
+
+  .workspace{
+    padding:18px;
+  }
 }
 </style>
 </head>
@@ -301,24 +301,65 @@ select{
 <body>
 
 <header class="header">
-  <div class="logo">StarSun<span>AI</span></div>
-  <div class="profile">S</div>
+
+  <div class="logo">
+    StarSun<span>AI</span>
+  </div>
+
+  <div class="profile">
+    S
+  </div>
+
 </header>
+
 
 <div class="layout">
 
 <aside class="sidebar">
 
-  <div class="sidebar-title">Creator Studio</div>
+  <div class="sidebar-title">
+    Creator Studio
+  </div>
 
-  <div class="menu active" onclick="showDashboard()">🏠 Dashboard</div>
-  <div class="menu" onclick="openTool('image')">🖼️ AI Image</div>
-  <div class="menu" onclick="openTool('video')">🎬 AI Video</div>
-  <div class="menu" onclick="openTool('story')">✍️ AI Story</div>
-  <div class="menu" onclick="openTool('voice')">🎙️ AI Voice</div>
-  <div class="menu" onclick="openTool('character')">👤 Characters</div>
-  <div class="menu" onclick="openTool('background')">🌄 Backgrounds</div>
-  <div class="menu" onclick="openTool('projects')">📁 Projects</div>
+  <div class="menu active" data-tool="dashboard"
+       onclick="navigate('dashboard')">
+    🏠 Dashboard
+  </div>
+
+  <div class="menu" data-tool="image"
+       onclick="navigate('image')">
+    🖼️ AI Image
+  </div>
+
+  <div class="menu" data-tool="video"
+       onclick="navigate('video')">
+    🎬 AI Video
+  </div>
+
+  <div class="menu" data-tool="story"
+       onclick="navigate('story')">
+    ✍️ AI Story
+  </div>
+
+  <div class="menu" data-tool="voice"
+       onclick="navigate('voice')">
+    🎙️ AI Voice
+  </div>
+
+  <div class="menu" data-tool="character"
+       onclick="navigate('character')">
+    👤 Characters
+  </div>
+
+  <div class="menu" data-tool="background"
+       onclick="navigate('background')">
+    🌄 Backgrounds
+  </div>
+
+  <div class="menu" data-tool="projects"
+       onclick="navigate('projects')">
+    📁 Projects
+  </div>
 
 </aside>
 
@@ -328,46 +369,95 @@ select{
 <div id="dashboard">
 
   <div class="top">
-    <h1>StarSunAI Creator Studio 🚀</h1>
-    <p>Create images, videos, stories, voices and characters from one place.</p>
+
+    <h1>
+      StarSunAI Creator Studio 🚀
+    </h1>
+
+    <p>
+      Create images, videos, stories, voices and characters from one place.
+    </p>
+
   </div>
+
 
   <div class="tools">
 
-    <div class="tool" onclick="openTool('image')">
+    <div class="tool" onclick="navigate('image')">
+
       <div class="tool-icon">🖼️</div>
+
       <h3>AI Image</h3>
-      <p>Generate images from text prompts and creative ideas.</p>
+
+      <p>
+        Generate images from text prompts and creative ideas.
+      </p>
+
     </div>
 
-    <div class="tool" onclick="openTool('video')">
+
+    <div class="tool" onclick="navigate('video')">
+
       <div class="tool-icon">🎬</div>
+
       <h3>AI Video</h3>
-      <p>Create video projects using scripts and scenes.</p>
+
+      <p>
+        Create video projects using scripts and scenes.
+      </p>
+
     </div>
 
-    <div class="tool" onclick="openTool('story')">
+
+    <div class="tool" onclick="navigate('story')">
+
       <div class="tool-icon">✍️</div>
+
       <h3>AI Story Writer</h3>
-      <p>Create stories, scripts, dialogue and narration.</p>
+
+      <p>
+        Create stories, scripts, dialogue and narration.
+      </p>
+
     </div>
 
-    <div class="tool" onclick="openTool('voice')">
+
+    <div class="tool" onclick="navigate('voice')">
+
       <div class="tool-icon">🎙️</div>
+
       <h3>AI Voice</h3>
-      <p>Prepare text for AI voice generation.</p>
+
+      <p>
+        Prepare text for AI voice generation.
+      </p>
+
     </div>
 
-    <div class="tool" onclick="openTool('character')">
+
+    <div class="tool" onclick="navigate('character')">
+
       <div class="tool-icon">👤</div>
+
       <h3>Character Creator</h3>
-      <p>Create and manage characters for your projects.</p>
+
+      <p>
+        Create and manage characters for your projects.
+      </p>
+
     </div>
 
-    <div class="tool" onclick="openTool('background')">
+
+    <div class="tool" onclick="navigate('background')">
+
       <div class="tool-icon">🌄</div>
+
       <h3>Background Creator</h3>
-      <p>Create backgrounds for stories and videos.</p>
+
+      <p>
+        Create backgrounds for stories and videos.
+      </p>
+
     </div>
 
   </div>
@@ -377,35 +467,79 @@ select{
 
 <div id="workspace" class="workspace">
 
-  <div class="back" onclick="showDashboard()">← Back to Dashboard</div>
+  <div class="back" onclick="navigate('dashboard')">
+    ← Back to Dashboard
+  </div>
 
-  <h2 id="workspaceTitle">AI Tool</h2>
-  <p id="workspaceDescription"></p>
+  <h2 id="workspaceTitle">
+    AI Tool
+  </h2>
 
-  <textarea id="prompt" placeholder="Describe what you want to create..."></textarea>
+  <p id="workspaceDescription">
+  </p>
+
+  <textarea
+    id="prompt"
+    placeholder="Describe what you want to create..."
+  ></textarea>
+
 
   <div class="controls">
 
     <select id="ratio">
-      <option>16:9</option>
-      <option>9:16</option>
-      <option>1:1</option>
+
+      <option value="16:9">
+        16:9 — YouTube
+      </option>
+
+      <option value="9:16">
+        9:16 — Shorts/Reels
+      </option>
+
+      <option value="1:1">
+        1:1 — Square
+      </option>
+
     </select>
+
 
     <select id="style">
-      <option>Realistic</option>
-      <option>Cinematic</option>
-      <option>Anime</option>
-      <option>Illustration</option>
+
+      <option>
+        Realistic
+      </option>
+
+      <option>
+        Cinematic
+      </option>
+
+      <option>
+        Anime
+      </option>
+
+      <option>
+        Illustration
+      </option>
+
     </select>
 
-    <button class="btn" onclick="generate()">Generate</button>
+
+    <button class="btn" onclick="generate()">
+      Generate
+    </button>
 
   </div>
 
+
   <div id="result" class="result">
-    <h3>Project Created</h3>
-    <p id="resultText"></p>
+
+    <h3>
+      Project Created
+    </h3>
+
+    <p id="resultText">
+    </p>
+
   </div>
 
 </div>
@@ -418,6 +552,11 @@ select{
 <script>
 
 const tools = {
+
+  dashboard:{
+    title:"StarSunAI Creator Studio",
+    description:"Create images, videos, stories, voices and characters from one place."
+  },
 
   image:{
     title:"AI Image Generator",
@@ -447,58 +586,124 @@ const tools = {
   background:{
     title:"Background Creator",
     description:"Describe the location, environment and visual style for your background."
+  },
+
+  projects:{
+    title:"My Projects",
+    description:"Your saved StarSunAI projects will appear here."
   }
 
 };
 
 
-function openTool(type){
+/* -----------------------------
+   PAGE NAVIGATION
+------------------------------ */
 
-  document.getElementById("dashboard").style.display="none";
+function renderPage(type){
 
-  const workspace=document.getElementById("workspace");
+  const dashboard =
+    document.getElementById("dashboard");
 
-  workspace.classList.add("show");
+  const workspace =
+    document.getElementById("workspace");
 
-  document.getElementById("workspaceTitle").innerText=tools[type].title;
+  const title =
+    document.getElementById("workspaceTitle");
 
-  document.getElementById("workspaceDescription").innerText=tools[type].description;
+  const description =
+    document.getElementById("workspaceDescription");
 
-  document.getElementById("prompt").value="";
+  const result =
+    document.getElementById("result");
 
-  document.getElementById("result").classList.remove("show");
+  if(type === "dashboard"){
 
-}
+    dashboard.style.display="block";
 
+    workspace.classList.remove("show");
 
-function showDashboard(){
+  }else{
 
-  document.getElementById("dashboard").style.display="block";
+    dashboard.style.display="none";
 
-  document.getElementById("workspace").classList.remove("show");
+    workspace.classList.add("show");
 
-}
+    title.innerText =
+      tools[type].title;
 
+    description.innerText =
+      tools[type].description;
 
-function generate(){
+    document.getElementById("prompt").value="";
 
-  const prompt=document.getElementById("prompt").value.trim();
+    result.classList.remove("show");
 
-  if(!prompt){
-
-    alert("Please enter your prompt first.");
-
-    return;
   }
 
-  document.getElementById("resultText").innerText=
-  "Your StarSunAI project has been prepared. Real AI generation will be connected in the next development step.";
-
-  document.getElementById("result").classList.add("show");
+  updateActiveMenu(type);
 
 }
 
-</script>
 
-</body>
-  </html>
+/* -----------------------------
+   BROWSER HISTORY
+------------------------------ */
+
+function navigate(type){
+
+  const current =
+    new URL(window.location.href);
+
+  current.hash = type;
+
+  history.pushState(
+    {page:type},
+    "",
+    current
+  );
+
+  renderPage(type);
+
+  window.scrollTo(0,0);
+}
+
+
+/* -----------------------------
+   PHONE / BROWSER BACK BUTTON
+------------------------------ */
+
+window.addEventListener(
+  "popstate",
+  function(event){
+
+    const hash =
+      window.location.hash
+      .replace("#","");
+
+    if(hash && tools[hash]){
+
+      renderPage(hash);
+
+    }else{
+
+      renderPage("dashboard");
+
+    }
+
+  }
+);
+
+
+/* -----------------------------
+   ACTIVE MENU
+------------------------------ */
+
+function updateActiveMenu(type){
+
+  const menus =
+    document.querySelectorAll(".menu");
+
+  menus.forEach(function(menu){
+
+    menu.classList.remove("active");
