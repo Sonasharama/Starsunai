@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StarSunAI - Background Creator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6fa;
+    color:#171717;
+}
+
+.header{
+    height:115px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    border-bottom:1px solid #ddd;
+}
+
+.logo{
+    font-size:40px;
+    font-weight:800;
+    color:#6d28d9;
+}
+
+.logo span{
+    color:#111827;
+}
+
+.profile{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#6d28d9;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.nav{
+    background:#111827;
+    min-height:78px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 15px;
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#e5e7eb;
+    padding:17px 20px;
+    border-radius:15px;
+    font-size:20px;
+}
+
+.nav a.active{
+    background:#6d28d9;
+    color:#fff;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 25px 60px;
+}
+
+.back{
+    display:inline-block;
+    text-decoration:none;
+    color:#6d28d9;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.title{
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#6b7280;
+    font-size:20px;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #e2e2e2;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+label{
+    display:block;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+textarea{
+    width:100%;
+    min-height:170px;
+    resize:vertical;
+    border:1px solid #d1d5db;
+    border-radius:15px;
+    padding:18px;
+    font-size:17px;
+    outline:none;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+textarea:focus{
+    border-color:#6d28d9;
+    box-shadow:0 0 0 3px rgba(109,40,217,0.12);
+}
+
+.options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:25px;
+}
+
+.option{
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:18px;
+}
+
+select{
+    width:100%;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:16px;
+    background:#fff;
+}
+
+.generate{
+    width:100%;
+    margin-top:25px;
+    border:none;
+    background:#6d28d9;
+    color:#fff;
+    padding:18px;
+    border-radius:15px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.generate:hover{
+    background:#5b21b6;
+}
+
+.preview{
+    margin-top:25px;
+    min-height:320px;
+    border:2px dashed #d1d5db;
+    border-radius:18px;
+    background:#f9fafb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+    color:#6b7280;
+}
+
+.scene-preview{
+    width:100%;
+}
+
+.scene-icon{
+    font-size:80px;
+    margin-bottom:15px;
+}
+
+.scene-title{
+    color:#111827;
+    font-size:28px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.scene-details{
+    color:#4b5563;
+    font-size:17px;
+    line-height:1.8;
+}
+
+@media(max-width:700px){
+
+    .header{
+        height:100px;
+        padding:0 20px;
+    }
+
+    .logo{
+        font-size:30px;
+    }
+
+    .profile{
+        width:50px;
+        height:50px;
+        font-size:20px;
+    }
+
+    .nav{
+        min-height:70px;
+    }
+
+    .nav a{
+        font-size:17px;
+        padding:14px 16px;
+    }
+
+    .container{
+        padding:25px 18px 50px;
+    }
+
+    .title{
+        font-size:32px;
+    }
+
+    .subtitle{
+        font-size:18px;
+    }
+
+    .options{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="logo">
+        StarSun<span>AI</span>
+    </div>
+
+    <div class="profile">
+        S
+    </div>
+
+</header>
+
+
+<nav class="nav">
+
+    <a href="index.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="image.html">
+        🖼️ AI Image
+    </a>
+
+    <a href="video.html">
+        🎬 AI Video
+    </a>
+
+    <a href="story.html">
+        ✍️ AI Story
+    </a>
+
+    <a href="voice.html">
+        🎙️ AI Voice
+    </a>
+
+    <a href="character.html">
+        👤 Character
+    </a>
+
+    <a href="background.html" class="active">
+        🌄 Background
+    </a>
+
+</nav>
+
+
+<main class="container">
+
+    <a href="index.html" class="back">
+        ← Dashboard पर वापस जाएँ
+    </a>
+
+    <h1 class="title">
+        🌄 Background Creator
+    </h1>
+
+    <p class="subtitle">
+        अपनी stories, videos और images के लिए शानदार backgrounds तैयार करें।
+    </p>
+
+
+    <section class="card">
+
+        <label for="backgroundPrompt">
+            Background Description
+        </label>
+
+        <textarea
+            id="backgroundPrompt"
+            placeholder="उदाहरण: राजस्थान का एक सुंदर रेगिस्तानी गाँव, दूर पहाड़, मिट्टी के घर, सुनहरी शाम, cinematic lighting..."
+        ></textarea>
+
+
+        <div class="options">
+
+            <div class="option">
+
+                <label>
+                    Background Type
+                </label>
+
+                <select id="backgroundType">
+
+                    <option>Village</option>
+                    <option>City</option>
+                    <option>Forest</option>
+                    <option>Mountain</option>
+                    <option>Desert</option>
+                    <option>Beach</option>
+                    <option>Royal Palace</option>
+                    <option>Fantasy World</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    Visual Style
+                </label>
+
+                <select id="visualStyle">
+
+                    <option>Realistic</option>
+                    <option>Ultra Realistic</option>
+                    <option>Cinematic</option>
+                    <option>Digital Art</option>
+                    <option>2D Animation</option>
+                    <option>3D Animation</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    Time of Day
+                </label>
+
+                <select id="time">
+
+                    <option>Morning</option>
+                    <option>Afternoon</option>
+                    <option>Golden Hour</option>
+                    <option>Sunset</option>
+                    <option>Night</option>
+                    <option>Midnight</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    Aspect Ratio
+                </label>
+
+                <select id="ratio">
+
+                    <option>16:9 - YouTube</option>
+                    <option>9:16 - Shorts/Reels</option>
+                    <option>1:1 - Square</option>
+                    <option>4:5 - Social Media</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <button class="generate" onclick="createBackground()">
+            ✨ Create Background
+        </button>
+
+
+        <div class="preview" id="preview">
+
+            <div>
+
+                <div style="font-size:75px;">
+                    🌄
+                </div>
+
+                <br>
+
+                <strong>
+                    आपका Background यहाँ दिखाई देगा
+                </strong>
+
+                <br><br>
+
+                Background description लिखकर
+                <b>Create Background</b> दबाएँ।
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+function createBackground(){
+
+    const prompt =
+        document.getElementById("backgroundPrompt")
