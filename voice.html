@@ -3,133 +3,471 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>StarSunAI - AI Voice</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    margin:0;
-    padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f6fa;
-    color:#171717;
+font-family:Arial,sans-serif;
+background:#f5f6fa;
+color:#171717;
 }
 
-/* HEADER */
 .header{
-    height:115px;
-    background:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 28px;
-    border-bottom:1px solid #ddd;
+height:100px;
+background:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 22px;
+border-bottom:1px solid #ddd;
 }
 
 .logo{
-    font-size:40px;
-    font-weight:800;
-    color:#6d28d9;
+font-size:32px;
+font-weight:800;
+color:#6d28d9;
 }
 
-.logo span{
-    color:#111827;
-}
+.logo span{color:#111827}
 
 .profile{
-    width:58px;
-    height:58px;
-    border-radius:50%;
-    background:#6d28d9;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-weight:bold;
+width:52px;
+height:52px;
+border-radius:50%;
+background:#6d28d9;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+font-weight:bold;
 }
 
-/* NAVIGATION */
 .nav{
-    background:#111827;
-    min-height:78px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:0 15px;
-    overflow-x:auto;
-    white-space:nowrap;
+background:#111827;
+display:flex;
+gap:8px;
+padding:8px 12px;
+overflow-x:auto;
+white-space:nowrap;
 }
 
 .nav a{
-    text-decoration:none;
-    color:#e5e7eb;
-    padding:17px 20px;
-    border-radius:15px;
-    font-size:20px;
+color:#e5e7eb;
+text-decoration:none;
+padding:14px 16px;
+border-radius:12px;
+font-size:17px;
 }
 
 .nav a.active{
-    background:#6d28d9;
-    color:#fff;
+background:#6d28d9;
+color:white;
 }
 
-/* MAIN */
 .container{
-    max-width:1100px;
-    margin:auto;
-    padding:35px 25px 60px;
+max-width:1000px;
+margin:auto;
+padding:28px 20px 60px;
 }
 
 .back{
-    display:inline-block;
-    text-decoration:none;
-    color:#6d28d9;
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:25px;
+display:inline-block;
+color:#6d28d9;
+text-decoration:none;
+font-weight:bold;
+font-size:17px;
+margin-bottom:22px;
 }
 
 .title{
-    font-size:42px;
-    font-weight:800;
-    margin-bottom:10px;
+font-size:38px;
+margin-bottom:8px;
 }
 
 .subtitle{
-    color:#6b7280;
-    font-size:20px;
-    line-height:1.5;
-    margin-bottom:30px;
+font-size:19px;
+color:#6b7280;
+margin-bottom:25px;
 }
 
-/* CARD */
 .card{
-    background:#fff;
-    border:1px solid #e2e2e2;
-    border-radius:22px;
-    padding:28px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+background:white;
+border:1px solid #ddd;
+border-radius:20px;
+padding:25px;
+box-shadow:0 5px 20px rgba(0,0,0,.05);
 }
 
 label{
-    display:block;
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:10px;
+display:block;
+font-weight:bold;
+font-size:17px;
+margin-bottom:9px;
 }
 
 textarea{
-    width:100%;
-    min-height:200px;
-    resize:vertical;
-    border:1px solid #d1d5db;
-    border-radius:15px;
-    padding:18px;
-    font-size:17px;
-    outline:none;
-   
+width:100%;
+height:190px;
+border:1px solid #ccc;
+border-radius:14px;
+padding:16px;
+font-size:17px;
+resize:vertical;
+outline:none;
+}
+
+.options{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:20px;
+}
+
+.option{
+border:1px solid #ddd;
+border-radius:14px;
+padding:15px;
+}
+
+select{
+width:100%;
+padding:13px;
+border:1px solid #ccc;
+border-radius:9px;
+font-size:16px;
+background:white;
+}
+
+.generate{
+width:100%;
+margin-top:22px;
+padding:17px;
+border:0;
+border-radius:13px;
+background:#6d28d9;
+color:white;
+font-size:19px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.result{
+margin-top:22px;
+min-height:180px;
+border:2px dashed #d1d5db;
+border-radius:16px;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:25px;
+color:#6b7280;
+}
+
+.player{
+display:none;
+margin-top:20px;
+background:#111827;
+color:white;
+border-radius:16px;
+padding:20px;
+}
+
+.progress{
+height:8px;
+background:#374151;
+border-radius:10px;
+margin:15px 0;
+overflow:hidden;
+}
+
+.bar{
+height:100%;
+width:0%;
+background:#8b5cf6;
+}
+
+.play{
+border:0;
+border-radius:50%;
+width:50px;
+height:50px;
+background:#6d28d9;
+color:white;
+font-size:20px;
+}
+
+@media(max-width:650px){
+
+.header{height:90px}
+
+.logo{font-size:28px}
+
+.profile{
+width:48px;
+height:48px;
+}
+
+.nav a{
+font-size:15px;
+padding:12px 14px;
+}
+
+.container{
+padding:22px 16px 50px;
+}
+
+.title{
+font-size:31px;
+}
+
+.subtitle{
+font-size:17px;
+}
+
+.card{
+padding:19px;
+}
+
+.options{
+grid-template-columns:1fr;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="logo">StarSun<span>AI</span></div>
+<div class="profile">S</div>
+</header>
+
+<nav class="nav">
+
+<a href="index.html">🏠 Dashboard</a>
+
+<a href="image.html">🖼️ AI Image</a>
+
+<a href="video.html">🎬 AI Video</a>
+
+<a href="story.html">✍️ AI Story</a>
+
+<a href="voice.html" class="active">🎙️ AI Voice</a>
+
+<a href="character.html">👤 Character</a>
+
+<a href="background.html">🌄 Background</a>
+
+</nav>
+
+<main class="container">
+
+<a href="index.html" class="back">
+← Dashboard पर वापस जाएँ
+</a>
+
+<h1 class="title">
+🎙️ AI Voice Creator
+</h1>
+
+<p class="subtitle">
+अपने text और script को voice generation के लिए तैयार करें।
+</p>
+
+<section class="card">
+
+<label for="text">
+अपना Text / Script
+</label>
+
+<textarea
+id="text"
+placeholder="यहाँ अपनी कहानी, narration, dialogue या script लिखें..."
+></textarea>
+
+<div class="options">
+
+<div class="option">
+<label>Language</label>
+
+<select id="language">
+<option>Hindi</option>
+<option>Hinglish</option>
+<option>English</option>
+</select>
+</div>
+
+<div class="option">
+<label>Voice</label>
+
+<select id="voice">
+<option>Male - Natural</option>
+<option>Male - Deep</option>
+<option>Male - Emotional</option>
+<option>Female - Natural</option>
+<option>Female - Soft</option>
+<option>Female - Emotional</option>
+</select>
+</div>
+
+<div class="option">
+<label>Voice Style</label>
+
+<select id="style">
+<option>Natural</option>
+<option>Emotional</option>
+<option>Motivational</option>
+<option>Cinematic</option>
+<option>Storytelling</option>
+</select>
+</div>
+
+<div class="option">
+<label>Speed</label>
+
+<select id="speed">
+<option>Slow</option>
+<option selected>Normal</option>
+<option>Fast</option>
+</select>
+</div>
+
+</div>
+
+<button class="generate" onclick="generateVoice()">
+🎙️ Generate Voice
+</button>
+
+<div class="result" id="result">
+
+<div>
+<div style="font-size:55px">🎙️</div>
+<br>
+<strong>आपकी AI Voice यहाँ तैयार होगी</strong>
+<br><br>
+अपना text लिखकर Generate Voice दबाएँ।
+</div>
+
+</div>
+
+<div class="player" id="player">
+
+<strong>🎧 Voice Preview</strong>
+
+<div class="progress">
+<div class="bar" id="bar"></div>
+</div>
+
+<button class="play" onclick="playPreview()" id="play">
+▶
+</button>
+
+<span id="status"> Ready</span>
+
+</div>
+
+</section>
+
+</main>
+
+<script>
+
+let playing=false;
+let timer=null;
+
+function generateVoice(){
+
+const text=document.getElementById("text").value.trim();
+
+const language=document.getElementById("language").value;
+const voice=document.getElementById("voice").value;
+const style=document.getElementById("style").value;
+const speed=document.getElementById("speed").value;
+
+const result=document.getElementById("result");
+const player=document.getElementById("player");
+
+if(!text){
+
+result.innerHTML=`
+<div>
+<div style="font-size:45px">⚠️</div>
+<br>
+<strong>पहले अपना Text या Script लिखिए।</strong>
+</div>
+`;
+
+player.style.display="none";
+return;
+}
+
+result.innerHTML=`
+<div>
+<div style="font-size:50px">⏳</div>
+<br>
+<strong>Voice Project तैयार है</strong>
+<br><br>
+Language: ${language}<br>
+Voice: ${voice}<br>
+Style: ${style}<br>
+Speed: ${speed}
+<br><br>
+<small>
+वास्तविक AI Voice के लिए बाद में API जोड़ी जाएगी।
+</small>
+</div>
+`;
+
+player.style.display="block";
+document.getElementById("bar").style.width="0%";
+document.getElementById("status").innerText=" Ready";
+
+}
+
+function playPreview(){
+
+if(playing){
+
+playing=false;
+clearInterval(timer);
+document.getElementById("play").innerText="▶";
+document.getElementById("status").innerText=" Paused";
+return;
+
+}
+
+playing=true;
+
+let progress=0;
+
+document.getElementById("play").innerText="⏸";
+document.getElementById("status").innerText=" Playing preview...";
+
+timer=setInterval(function(){
+
+progress+=2;
+
+document.getElementById("bar").style.width=progress+"%";
+
+if(progress>=100){
+
+clearInterval(timer);
+playing=false;
+
+document.getElementById("play").innerText="▶";
+document.getElementById("status").innerText=" Finished";
+
+}
+
+},100);
+
+}
+
+</script>
+
+</body>
+</html>
