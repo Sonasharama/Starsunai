@@ -4,281 +4,47 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>StarSunAI - AI Voice</title>
-
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:Arial,sans-serif;
-background:#f5f6fa;
-color:#111827;
-}
-
-header{
-height:90px;
-background:white;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 25px;
-border-bottom:1px solid #ddd;
-}
-
-.logo{
-font-size:34px;
-font-weight:800;
-color:#6d28d9;
-}
-
-.logo span{color:#111827}
-
-.profile{
-width:50px;
-height:50px;
-border-radius:50%;
-background:#6d28d9;
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-font-weight:bold;
-}
-
-nav{
-background:#111827;
-display:flex;
-gap:8px;
-padding:12px;
-overflow-x:auto;
-}
-
-nav a{
-color:white;
-text-decoration:none;
-padding:14px 18px;
-border-radius:12px;
-white-space:nowrap;
-font-size:16px;
-}
-
-nav a.active{background:#6d28d9}
-
-main{
-max-width:1000px;
-margin:auto;
-padding:30px 20px 60px;
-}
-
-.back{
-color:#6d28d9;
-text-decoration:none;
-font-weight:bold;
-display:inline-block;
-margin-bottom:20px;
-}
-
-h1{
-font-size:40px;
-margin-bottom:8px;
-}
-
-.sub{
-color:#6b7280;
-font-size:18px;
-margin-bottom:25px;
-}
-
-.card{
-background:white;
-border-radius:20px;
-padding:25px;
-box-shadow:0 5px 20px rgba(0,0,0,.06);
-border:1px solid #e5e7eb;
-}
-
-label{
-display:block;
-font-weight:bold;
-margin:15px 0 8px;
-}
-
-textarea,select{
-width:100%;
-padding:15px;
-border:1px solid #d1d5db;
-border-radius:12px;
-font-size:16px;
-background:white;
-}
-
-textarea{
-height:180px;
-resize:vertical;
-}
-
-.row{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-}
-
-button{
-margin-top:22px;
-width:100%;
-padding:16px;
-border:0;
-border-radius:13px;
-background:#6d28d9;
-color:white;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{background:#5b21b6}
-
-.result{
-display:none;
-margin-top:25px;
-padding:20px;
-background:#f3f4f6;
-border-radius:15px;
-}
-
-.player{
-background:white;
-padding:15px;
-border-radius:12px;
-margin-top:12px;
-}
-
-@media(max-width:700px){
-header{height:75px}
-.logo{font-size:26px}
-.row{grid-template-columns:1fr}
-h1{font-size:30px}
-nav a{font-size:14px;padding:12px}
-}
+body{margin:0;font-family:Arial;background:#f5f6fa;color:#111}
+header{background:#fff;padding:25px;font-size:32px;font-weight:bold;color:#6d28d9}
+nav{background:#111827;padding:15px;overflow:auto;white-space:nowrap}
+nav a{color:white;text-decoration:none;margin-right:18px}
+main{max-width:900px;margin:30px auto;padding:20px}
+.card{background:white;padding:25px;border-radius:20px}
+textarea{width:100%;height:180px;padding:15px;font-size:16px;box-sizing:border-box}
+button{margin-top:15px;width:100%;padding:15px;background:#6d28d9;color:white;border:0;border-radius:10px;font-size:18px}
 </style>
 </head>
-
 <body>
 
-<header>
-<div class="logo">StarSun<span>AI</span></div>
-<div class="profile">S</div>
-</header>
+<header>StarSunAI</header>
 
 <nav>
 <a href="index.html">Home</a>
 <a href="image.html">AI Image</a>
 <a href="video.html">AI Video</a>
 <a href="story.html">AI Story</a>
-<a class="active" href="voice.html">AI Voice</a>
-<a href="character.html">Character</a>
-<a href="background.html">Background</a>
+<a href="voice.html">AI Voice</a>
 </nav>
 
 <main>
-
-<a class="back" href="index.html">← Dashboard पर वापस जाएँ</a>
-
-<h1>AI Voice Creator</h1>
-
-<p class="sub">
-अपनी स्क्रिप्ट लिखें और AI Voice तैयार करें।
-</p>
-
 <div class="card">
+<h1>🎙️ AI Voice Creator</h1>
+<p>अपनी Script यहाँ लिखें</p>
 
-<label>अपनी Script लिखें</label>
+<textarea id="text" placeholder="अपनी script लिखें..."></textarea>
 
-<textarea id="text" placeholder="यहाँ अपनी कहानी, वीडियो स्क्रिप्ट या डायलॉग लिखें..."></textarea>
+<button onclick="makeVoice()">Generate Voice</button>
 
-<div class="row">
-
-<div>
-<label>Language</label>
-<select id="language">
-<option>Hindi</option>
-<option>Hinglish</option>
-<option>English</option>
-</select>
+<p id="msg"></p>
 </div>
-
-<div>
-<label>Voice</label>
-<select id="voice">
-<option>Male</option>
-<option>Female</option>
-</select>
-</div>
-
-<div>
-<label>Voice Style</label>
-<select id="style">
-<option>Natural</option>
-<option>Motivational</option>
-<option>Storytelling</option>
-<option>Emotional</option>
-</select>
-</div>
-
-</div>
-
-<label>Speed</label>
-
-<select id="speed">
-<option>Normal</option>
-<option>Slow</option>
-<option>Fast</option>
-</select>
-
-<button onclick="generateVoice()">
-🎙️ Generate Voice
-</button>
-
-<div class="result" id="result">
-
-<h2>Voice Preview</h2>
-
-<p id="message"></p>
-
-<div class="player">
-🔊 आपकी AI Voice यहाँ दिखाई जाएगी।
-<br><br>
-<span>▶️ Preview</span>
-</div>
-
-</div>
-
-</div>
-
 </main>
 
 <script>
-function generateVoice(){
-
-const text=document.getElementById("text").value.trim();
-const result=document.getElementById("result");
-const message=document.getElementById("message");
-
-if(!text){
-alert("कृपया पहले अपनी Script लिखें।");
-return;
-}
-
-result.style.display="block";
-
-message.innerText=
-"आपकी Script तैयार है। AI Voice Generation API जोड़ने के बाद यहाँ आपकी वास्तविक आवाज़ generate होगी।";
-
-result.scrollIntoView({
-behavior:"smooth",
-block:"center"
-});
-
+function makeVoice(){
+let t=document.getElementById("text").value;
+if(!t){alert("पहले Script लिखें");return;}
+document.getElementById("msg").innerText="Script तैयार है।";
 }
 </script>
 
