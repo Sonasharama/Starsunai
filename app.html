@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>StarSunAI Creator Studio</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -13,14 +15,20 @@
   font-family:Arial,sans-serif;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   background:#f5f7fb;
   color:#171717;
 }
 
+/* HEADER */
+
 .header{
   height:64px;
-  background:#fff;
+  background:white;
   border-bottom:1px solid #e5e7eb;
   display:flex;
   align-items:center;
@@ -28,11 +36,11 @@ body{
   padding:0 22px;
   position:sticky;
   top:0;
-  z-index:20;
+  z-index:100;
 }
 
 .logo{
-  font-size:24px;
+  font-size:25px;
   font-weight:800;
   color:#6d28d9;
 }
@@ -42,8 +50,8 @@ body{
 }
 
 .profile{
-  width:38px;
-  height:38px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   background:#6d28d9;
   color:white;
@@ -53,57 +61,63 @@ body{
   font-weight:bold;
 }
 
-.layout{
-  display:flex;
-  min-height:calc(100vh - 64px);
-}
 
-.sidebar{
-  width:240px;
+/* NAVIGATION */
+
+.nav{
   background:#111827;
-  color:white;
-  padding:20px 12px;
+  display:flex;
+  gap:5px;
+  overflow-x:auto;
+  padding:8px 15px;
+  position:sticky;
+  top:64px;
+  z-index:90;
 }
 
-.sidebar-title{
-  color:#9ca3af;
-  font-size:12px;
-  margin:12px;
-  text-transform:uppercase;
-}
-
-.menu{
-  padding:12px 14px;
-  margin:4px 0;
-  border-radius:9px;
+.nav a{
   color:#d1d5db;
-  cursor:pointer;
+  text-decoration:none;
+  padding:11px 16px;
+  border-radius:9px;
+  white-space:nowrap;
+  font-size:14px;
 }
 
-.menu:hover,
-.menu.active{
+.nav a:hover{
   background:#6d28d9;
   color:white;
 }
 
-.content{
-  flex:1;
-  padding:28px;
+
+/* MAIN */
+
+.main{
   max-width:1400px;
+  margin:auto;
+  padding:28px;
 }
 
-.top{
-  margin-bottom:25px;
+.page{
+  min-height:calc(100vh - 130px);
 }
 
-.top h1{
-  font-size:30px;
-  margin-bottom:7px;
+.hero{
+  margin-bottom:28px;
 }
 
-.top p{
+.hero h1{
+  font-size:32px;
+  margin-bottom:8px;
+}
+
+.hero p{
   color:#6b7280;
+  font-size:17px;
 }
+
+
+/* TOOL CARDS */
 
 .tools{
   display:grid;
@@ -111,65 +125,88 @@ body{
   gap:18px;
 }
 
-.tool{
+.card{
   background:white;
   border:1px solid #e5e7eb;
-  border-radius:16px;
-  padding:22px;
-  cursor:pointer;
+  border-radius:17px;
+  padding:23px;
+  text-decoration:none;
+  color:#171717;
+  display:block;
   transition:.2s;
 }
 
-.tool:hover{
+.card:hover{
   transform:translateY(-3px);
   box-shadow:0 10px 25px rgba(0,0,0,.08);
 }
 
-.tool-icon{
-  font-size:30px;
-  margin-bottom:15px;
+.icon{
+  font-size:35px;
+  margin-bottom:18px;
 }
 
-.tool h3{
+.card h2{
+  font-size:20px;
   margin-bottom:8px;
 }
 
-.tool p{
+.card p{
   color:#6b7280;
-  font-size:14px;
   line-height:1.5;
 }
 
+
+/* WORKSPACE */
+
 .workspace{
+  min-height:calc(100vh - 130px);
+  padding-top:20px;
   display:none;
-  background:white;
-  border:1px solid #e5e7eb;
-  border-radius:16px;
-  padding:25px;
 }
 
-.workspace.show{
+.workspace:target{
   display:block;
 }
 
-.workspace h2{
+.workspace:target ~ #dashboard{
+  display:none;
+}
+
+.workspace-box{
+  background:white;
+  border:1px solid #e5e7eb;
+  border-radius:18px;
+  padding:25px;
+}
+
+.back{
+  display:inline-block;
+  color:#6d28d9;
+  text-decoration:none;
+  font-weight:bold;
+  margin-bottom:25px;
+}
+
+.workspace h1{
+  font-size:30px;
   margin-bottom:8px;
 }
 
-.workspace p{
+.workspace-description{
   color:#6b7280;
-  margin-bottom:20px;
+  margin-bottom:22px;
 }
 
 textarea{
   width:100%;
-  min-height:150px;
+  min-height:180px;
   border:1px solid #d1d5db;
   border-radius:12px;
-  padding:15px;
+  padding:16px;
   font-size:15px;
-  outline:none;
   resize:vertical;
+  outline:none;
 }
 
 textarea:focus{
@@ -184,44 +221,23 @@ textarea:focus{
 }
 
 select{
-  padding:11px;
+  padding:12px;
   border:1px solid #d1d5db;
-  border-radius:8px;
+  border-radius:9px;
   background:white;
 }
 
-.btn{
-  border:0;
+.button{
   background:#6d28d9;
   color:white;
-  padding:12px 20px;
+  border:0;
+  padding:12px 22px;
   border-radius:9px;
   font-weight:bold;
-  cursor:pointer;
 }
 
-.btn:hover{
-  background:#5b21b6;
-}
 
-.result{
-  margin-top:20px;
-  padding:20px;
-  border-radius:12px;
-  background:#f5f3ff;
-  display:none;
-}
-
-.result.show{
-  display:block;
-}
-
-.back{
-  margin-bottom:20px;
-  cursor:pointer;
-  color:#6d28d9;
-  font-weight:bold;
-}
+/* MOBILE */
 
 @media(max-width:900px){
 
@@ -229,9 +245,6 @@ select{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .sidebar{
-    width:200px;
-  }
 }
 
 @media(max-width:600px){
@@ -244,34 +257,25 @@ select{
     font-size:21px;
   }
 
-  .layout{
-    display:block;
+  .nav{
+    top:64px;
   }
 
-  .sidebar{
-    width:100%;
-    display:flex;
-    overflow-x:auto;
-    padding:8px;
-    gap:4px;
-  }
-
-  .sidebar-title{
-    display:none;
-  }
-
-  .menu{
-    white-space:nowrap;
-    font-size:13px;
+  .nav a{
     padding:10px 12px;
+    font-size:13px;
   }
 
-  .content{
+  .main{
     padding:18px 14px;
   }
 
-  .top h1{
-    font-size:25px;
+  .hero h1{
+    font-size:26px;
+  }
+
+  .hero p{
+    font-size:15px;
   }
 
   .tools{
@@ -279,26 +283,34 @@ select{
     gap:12px;
   }
 
-  .tool{
+  .card{
     padding:16px;
   }
 
-  .tool h3{
-    font-size:16px;
+  .card h2{
+    font-size:17px;
   }
 
-  .tool p{
-    font-size:12px;
+  .card p{
+    font-size:13px;
   }
 
-  .workspace{
+  .workspace-box{
     padding:18px;
   }
+
+  .workspace h1{
+    font-size:25px;
+  }
+
 }
+
 </style>
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -313,62 +325,35 @@ select{
 </header>
 
 
-<div class="layout">
+<nav class="nav">
 
-<aside class="sidebar">
+  <a href="#dashboard">🏠 Dashboard</a>
 
-  <div class="sidebar-title">
-    Creator Studio
-  </div>
+  <a href="#image">🖼️ AI Image</a>
 
-  <div class="menu active" data-tool="dashboard"
-       onclick="navigate('dashboard')">
-    🏠 Dashboard
-  </div>
+  <a href="#video">🎬 AI Video</a>
 
-  <div class="menu" data-tool="image"
-       onclick="navigate('image')">
-    🖼️ AI Image
-  </div>
+  <a href="#story">✍️ AI Story</a>
 
-  <div class="menu" data-tool="video"
-       onclick="navigate('video')">
-    🎬 AI Video
-  </div>
+  <a href="#voice">🎙️ AI Voice</a>
 
-  <div class="menu" data-tool="story"
-       onclick="navigate('story')">
-    ✍️ AI Story
-  </div>
+  <a href="#character">👤 Character</a>
 
-  <div class="menu" data-tool="voice"
-       onclick="navigate('voice')">
-    🎙️ AI Voice
-  </div>
+  <a href="#background">🌄 Background</a>
 
-  <div class="menu" data-tool="character"
-       onclick="navigate('character')">
-    👤 Characters
-  </div>
+  <a href="#projects">📁 Projects</a>
 
-  <div class="menu" data-tool="background"
-       onclick="navigate('background')">
-    🌄 Backgrounds
-  </div>
-
-  <div class="menu" data-tool="projects"
-       onclick="navigate('projects')">
-    📁 Projects
-  </div>
-
-</aside>
+</nav>
 
 
-<main class="content">
+<main class="main">
 
-<div id="dashboard">
 
-  <div class="top">
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page">
+
+  <div class="hero">
 
     <h1>
       StarSunAI Creator Studio 🚀
@@ -383,327 +368,389 @@ select{
 
   <div class="tools">
 
-    <div class="tool" onclick="navigate('image')">
+    <a class="card" href="#image">
 
-      <div class="tool-icon">🖼️</div>
+      <div class="icon">🖼️</div>
 
-      <h3>AI Image</h3>
+      <h2>AI Image</h2>
 
       <p>
         Generate images from text prompts and creative ideas.
       </p>
 
-    </div>
+    </a>
 
 
-    <div class="tool" onclick="navigate('video')">
+    <a class="card" href="#video">
 
-      <div class="tool-icon">🎬</div>
+      <div class="icon">🎬</div>
 
-      <h3>AI Video</h3>
+      <h2>AI Video</h2>
 
       <p>
         Create video projects using scripts and scenes.
       </p>
 
-    </div>
+    </a>
 
 
-    <div class="tool" onclick="navigate('story')">
+    <a class="card" href="#story">
 
-      <div class="tool-icon">✍️</div>
+      <div class="icon">✍️</div>
 
-      <h3>AI Story Writer</h3>
+      <h2>AI Story Writer</h2>
 
       <p>
         Create stories, scripts, dialogue and narration.
       </p>
 
-    </div>
+    </a>
 
 
-    <div class="tool" onclick="navigate('voice')">
+    <a class="card" href="#voice">
 
-      <div class="tool-icon">🎙️</div>
+      <div class="icon">🎙️</div>
 
-      <h3>AI Voice</h3>
+      <h2>AI Voice</h2>
 
       <p>
         Prepare text for AI voice generation.
       </p>
 
-    </div>
+    </a>
 
 
-    <div class="tool" onclick="navigate('character')">
+    <a class="card" href="#character">
 
-      <div class="tool-icon">👤</div>
+      <div class="icon">👤</div>
 
-      <h3>Character Creator</h3>
+      <h2>Character Creator</h2>
 
       <p>
         Create and manage characters for your projects.
       </p>
 
-    </div>
+    </a>
 
 
-    <div class="tool" onclick="navigate('background')">
+    <a class="card" href="#background">
 
-      <div class="tool-icon">🌄</div>
+      <div class="icon">🌄</div>
 
-      <h3>Background Creator</h3>
+      <h2>Background Creator</h2>
 
       <p>
         Create backgrounds for stories and videos.
       </p>
 
+    </a>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- AI IMAGE -->
+
+<section id="image" class="workspace">
+
+  <div class="workspace-box">
+
+    <a class="back" href="#dashboard">
+      ← Back to Dashboard
+    </a>
+
+    <h1>
+      AI Image Generator
+    </h1>
+
+    <p class="workspace-description">
+      Describe the image you want to create.
+    </p>
+
+    <textarea
+      placeholder="Example: A realistic Indian village at sunset, cinematic lighting..."
+    ></textarea>
+
+    <div class="controls">
+
+      <select>
+        <option>16:9 — YouTube</option>
+        <option>9:16 — Shorts</option>
+        <option>1:1 — Square</option>
+      </select>
+
+      <select>
+        <option>Realistic</option>
+        <option>Cinematic</option>
+        <option>Anime</option>
+        <option>Illustration</option>
+      </select>
+
+      <button class="button">
+        Generate Image
+      </button>
+
     </div>
 
   </div>
 
-</div>
+</section>
 
 
-<div id="workspace" class="workspace">
 
-  <div class="back" onclick="navigate('dashboard')">
-    ← Back to Dashboard
-  </div>
+<!-- AI VIDEO -->
 
-  <h2 id="workspaceTitle">
-    AI Tool
-  </h2>
+<section id="video" class="workspace">
 
-  <p id="workspaceDescription">
-  </p>
+  <div class="workspace-box">
 
-  <textarea
-    id="prompt"
-    placeholder="Describe what you want to create..."
-  ></textarea>
+    <a class="back" href="#dashboard">
+      ← Back to Dashboard
+    </a>
 
+    <h1>
+      AI Video Studio
+    </h1>
 
-  <div class="controls">
-
-    <select id="ratio">
-
-      <option value="16:9">
-        16:9 — YouTube
-      </option>
-
-      <option value="9:16">
-        9:16 — Shorts/Reels
-      </option>
-
-      <option value="1:1">
-        1:1 — Square
-      </option>
-
-    </select>
-
-
-    <select id="style">
-
-      <option>
-        Realistic
-      </option>
-
-      <option>
-        Cinematic
-      </option>
-
-      <option>
-        Anime
-      </option>
-
-      <option>
-        Illustration
-      </option>
-
-    </select>
-
-
-    <button class="btn" onclick="generate()">
-      Generate
-    </button>
-
-  </div>
-
-
-  <div id="result" class="result">
-
-    <h3>
-      Project Created
-    </h3>
-
-    <p id="resultText">
+    <p class="workspace-description">
+      Start your video project with an idea, script or scene.
     </p>
 
+    <textarea
+      placeholder="Enter your video idea or script..."
+    ></textarea>
+
+    <div class="controls">
+
+      <select>
+        <option>16:9 — YouTube</option>
+        <option>9:16 — Shorts/Reels</option>
+      </select>
+
+      <button class="button">
+        Create Video Project
+      </button>
+
+    </div>
+
   </div>
 
-</div>
+</section>
+
+
+
+<!-- STORY -->
+
+<section id="story" class="workspace">
+
+  <div class="workspace-box">
+
+    <a class="back" href="#dashboard">
+      ← Back to Dashboard
+    </a>
+
+    <h1>
+      AI Story Writer
+    </h1>
+
+    <p class="workspace-description">
+      Turn your idea into a story, scenes, dialogue and narration.
+    </p>
+
+    <textarea
+      placeholder="Enter your story idea..."
+    ></textarea>
+
+    <div class="controls">
+
+      <select>
+        <option>Hindi</option>
+        <option>English</option>
+        <option>Hinglish</option>
+      </select>
+
+      <button class="button">
+        Generate Story
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- VOICE -->
+
+<section id="voice" class="workspace">
+
+  <div class="workspace-box">
+
+    <a class="back" href="#dashboard">
+      ← Back to Dashboard
+    </a>
+
+    <h1>
+      AI Voice Studio
+    </h1>
+
+    <p class="workspace-description">
+      Enter narration text for your voice project.
+    </p>
+
+    <textarea
+      placeholder="Enter your narration text..."
+    ></textarea>
+
+    <div class="controls">
+
+      <select>
+        <option>Hindi Male</option>
+        <option>Hindi Female</option>
+        <option>English Male</option>
+        <option>English Female</option>
+      </select>
+
+      <button class="button">
+        Generate Voice
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- CHARACTER -->
+
+<section id="character" class="workspace">
+
+  <div class="workspace-box">
+
+    <a class="back" href="#dashboard">
+      ← Back to Dashboard
+    </a>
+
+    <h1>
+      Character Creator
+    </h1>
+
+    <p class="workspace-description">
+      Describe your character for your story or video.
+    </p>
+
+    <textarea
+      placeholder="Example: A muscular Rajasthani farmer with white beard..."
+    ></textarea>
+
+    <div class="controls">
+
+      <select>
+        <option>Realistic</option>
+        <option>Cinematic</option>
+        <option>Illustration</option>
+      </select>
+
+      <button class="button">
+        Create Character
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- BACKGROUND -->
+
+<section id="background" class="workspace">
+
+  <div class="workspace-box">
+
+    <a class="back" href="#dashboard">
+      ← Back to Dashboard
+    </a>
+
+    <h1>
+      Background Creator
+    </h1>
+
+    <p class="workspace-description">
+      Describe the location and environment.
+    </p>
+
+    <textarea
+      placeholder="Example: Rajasthan desert village during golden hour..."
+    ></textarea>
+
+    <div class="controls">
+
+      <select>
+        <option>16:9</option>
+        <option>9:16</option>
+        <option>1:1</option>
+      </select>
+
+      <button class="button">
+        Create Background
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- PROJECTS -->
+
+<section id="projects" class="workspace">
+
+  <div class="workspace-box">
+
+    <a class="back" href="#dashboard">
+      ← Back to Dashboard
+    </a>
+
+    <h1>
+      My Projects
+    </h1>
+
+    <p class="workspace-description">
+      Your StarSunAI projects will appear here.
+    </p>
+
+    <div style="
+      padding:30px;
+      background:#f5f3ff;
+      border-radius:12px;
+      text-align:center;
+    ">
+
+      📁
+
+      <br><br>
+
+      No projects yet.
+
+    </div>
+
+  </div>
+
+</section>
+
 
 </main>
 
-</div>
 
-
-<script>
-
-const tools = {
-
-  dashboard:{
-    title:"StarSunAI Creator Studio",
-    description:"Create images, videos, stories, voices and characters from one place."
-  },
-
-  image:{
-    title:"AI Image Generator",
-    description:"Write a detailed prompt and prepare your image generation project."
-  },
-
-  video:{
-    title:"AI Video Studio",
-    description:"Start your video project with a script, idea or scene description."
-  },
-
-  story:{
-    title:"AI Story Writer",
-    description:"Create stories, scenes, dialogue and narration from your idea."
-  },
-
-  voice:{
-    title:"AI Voice Studio",
-    description:"Enter narration text and prepare your voice generation project."
-  },
-
-  character:{
-    title:"Character Creator",
-    description:"Describe your character and prepare a consistent character project."
-  },
-
-  background:{
-    title:"Background Creator",
-    description:"Describe the location, environment and visual style for your background."
-  },
-
-  projects:{
-    title:"My Projects",
-    description:"Your saved StarSunAI projects will appear here."
-  }
-
-};
-
-
-/* -----------------------------
-   PAGE NAVIGATION
------------------------------- */
-
-function renderPage(type){
-
-  const dashboard =
-    document.getElementById("dashboard");
-
-  const workspace =
-    document.getElementById("workspace");
-
-  const title =
-    document.getElementById("workspaceTitle");
-
-  const description =
-    document.getElementById("workspaceDescription");
-
-  const result =
-    document.getElementById("result");
-
-  if(type === "dashboard"){
-
-    dashboard.style.display="block";
-
-    workspace.classList.remove("show");
-
-  }else{
-
-    dashboard.style.display="none";
-
-    workspace.classList.add("show");
-
-    title.innerText =
-      tools[type].title;
-
-    description.innerText =
-      tools[type].description;
-
-    document.getElementById("prompt").value="";
-
-    result.classList.remove("show");
-
-  }
-
-  updateActiveMenu(type);
-
-}
-
-
-/* -----------------------------
-   BROWSER HISTORY
------------------------------- */
-
-function navigate(type){
-
-  const current =
-    new URL(window.location.href);
-
-  current.hash = type;
-
-  history.pushState(
-    {page:type},
-    "",
-    current
-  );
-
-  renderPage(type);
-
-  window.scrollTo(0,0);
-}
-
-
-/* -----------------------------
-   PHONE / BROWSER BACK BUTTON
------------------------------- */
-
-window.addEventListener(
-  "popstate",
-  function(event){
-
-    const hash =
-      window.location.hash
-      .replace("#","");
-
-    if(hash && tools[hash]){
-
-      renderPage(hash);
-
-    }else{
-
-      renderPage("dashboard");
-
-    }
-
-  }
-);
-
-
-/* -----------------------------
-   ACTIVE MENU
------------------------------- */
-
-function updateActiveMenu(type){
-
-  const menus =
-    document.querySelectorAll(".menu");
-
-  menus.forEach(function(menu){
-
-    menu.classList.remove("active");
+</body>
+</html>
