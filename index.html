@@ -3,48 +3,356 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StarSunAI</title>
 
-<meta http-equiv="refresh" content="0; url=app.html">
-
-<script>
-window.location.href = "app.html";
-</script>
+<title>StarSunAI Creator Studio</title>
 
 <style>
-body{
+*{
+    box-sizing:border-box;
     margin:0;
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#f5f3ff;
+    padding:0;
     font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
     color:#171717;
 }
 
-.box{
-    text-align:center;
+/* HEADER */
+.header{
+    height:64px;
+    background:#ffffff;
+    border-bottom:1px solid #e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 22px;
 }
 
 .logo{
-    font-size:38px;
+    font-size:25px;
     font-weight:800;
     color:#6d28d9;
 }
 
-p{
+.logo span{
+    color:#111827;
+}
+
+.profile{
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    background:#6d28d9;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+/* NAVIGATION */
+.nav{
+    background:#111827;
+    display:flex;
+    gap:5px;
+    overflow-x:auto;
+    padding:8px 15px;
+}
+
+.nav a{
+    color:#d1d5db;
+    text-decoration:none;
+    padding:11px 16px;
+    border-radius:9px;
+    white-space:nowrap;
+    font-size:14px;
+}
+
+.nav a:hover{
+    background:#6d28d9;
+    color:white;
+}
+
+/* MAIN */
+.main{
+    max-width:1400px;
+    margin:auto;
+    padding:28px;
+}
+
+.hero{
+    margin-bottom:28px;
+}
+
+.hero h1{
+    font-size:32px;
+    margin-bottom:8px;
+}
+
+.hero p{
     color:#6b7280;
+    font-size:17px;
+}
+
+/* CARDS */
+.tools{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+}
+
+.card{
+    background:white;
+    border:1px solid #e5e7eb;
+    border-radius:17px;
+    padding:23px;
+    text-decoration:none;
+    color:#171717;
+    display:block;
+    transition:0.2s;
+}
+
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.icon{
+    font-size:38px;
+    margin-bottom:18px;
+}
+
+.card h2{
+    font-size:20px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#6b7280;
+    line-height:1.5;
+}
+
+/* MOBILE */
+@media(max-width:900px){
+
+    .tools{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+        padding:0 15px;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .nav{
+        padding:8px 10px;
+    }
+
+    .nav a{
+        padding:10px 12px;
+        font-size:13px;
+    }
+
+    .main{
+        padding:18px 14px;
+    }
+
+    .hero h1{
+        font-size:26px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .tools{
+        grid-template-columns:1fr 1fr;
+        gap:12px;
+    }
+
+    .card{
+        padding:16px;
+    }
+
+    .card h2{
+        font-size:17px;
+    }
+
+    .card p{
+        font-size:13px;
+    }
+
 }
 </style>
+
 </head>
 
 <body>
 
-<div class="box">
-    <div class="logo">StarSunAI</div>
-    <p>Opening Creator Studio...</p>
-</div>
+<header class="header">
+
+    <div class="logo">
+        StarSun<span>AI</span>
+    </div>
+
+    <div class="profile">
+        S
+    </div>
+
+</header>
+
+
+<nav class="nav">
+
+    <a href="index.html">🏠 Dashboard</a>
+
+    <a href="image.html">🖼️ AI Image</a>
+
+    <a href="video.html">🎬 AI Video</a>
+
+    <a href="story.html">✍️ AI Story</a>
+
+    <a href="voice.html">🎙️ AI Voice</a>
+
+    <a href="character.html">👤 Character</a>
+
+    <a href="background.html">🌄 Background</a>
+
+</nav>
+
+
+<main class="main">
+
+    <div class="hero">
+
+        <h1>
+            StarSunAI Creator Studio 🚀
+        </h1>
+
+        <p>
+            Create images, videos, stories, voices and characters from one place.
+        </p>
+
+    </div>
+
+
+    <div class="tools">
+
+
+        <a class="card" href="image.html">
+
+            <div class="icon">
+                🖼️
+            </div>
+
+            <h2>
+                AI Image
+            </h2>
+
+            <p>
+                Generate images from text prompts and creative ideas.
+            </p>
+
+        </a>
+
+
+        <a class="card" href="video.html">
+
+            <div class="icon">
+                🎬
+            </div>
+
+            <h2>
+                AI Video
+            </h2>
+
+            <p>
+                Create video projects using scripts and scenes.
+            </p>
+
+        </a>
+
+
+        <a class="card" href="story.html">
+
+            <div class="icon">
+                ✍️
+            </div>
+
+            <h2>
+                AI Story Writer
+            </h2>
+
+            <p>
+                Create stories, scripts, dialogue and narration.
+            </p>
+
+        </a>
+
+
+        <a class="card" href="voice.html">
+
+            <div class="icon">
+                🎙️
+            </div>
+
+            <h2>
+                AI Voice
+            </h2>
+
+            <p>
+                Prepare text for AI voice generation.
+            </p>
+
+        </a>
+
+
+        <a class="card" href="character.html">
+
+            <div class="icon">
+                👤
+            </div>
+
+            <h2>
+                Character Creator
+            </h2>
+
+            <p>
+                Create and manage characters for your projects.
+            </p>
+
+        </a>
+
+
+        <a class="card" href="background.html">
+
+            <div class="icon">
+                🌄
+            </div>
+
+            <h2>
+                Background Creator
+            </h2>
+
+            <p>
+                Create backgrounds for stories and videos.
+            </p>
+
+        </a>
+
+
+    </div>
+
+</main>
 
 </body>
 </html>
