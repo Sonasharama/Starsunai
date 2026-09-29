@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>StarSunAI - AI Story Writer</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f5f6fa;
+    color:#171717;
+}
+
+/* HEADER */
+.header{
+    height:115px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+    border-bottom:1px solid #ddd;
+}
+
+.logo{
+    font-size:40px;
+    font-weight:800;
+    color:#6d28d9;
+}
+
+.logo span{
+    color:#111827;
+}
+
+.profile{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:#6d28d9;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+/* NAVIGATION */
+.nav{
+    background:#111827;
+    min-height:78px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:0 15px;
+    overflow-x:auto;
+    white-space:nowrap;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#e5e7eb;
+    padding:17px 20px;
+    border-radius:15px;
+    font-size:20px;
+}
+
+.nav a.active{
+    background:#6d28d9;
+    color:#fff;
+}
+
+/* MAIN */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 25px 60px;
+}
+
+.back{
+    display:inline-block;
+    text-decoration:none;
+    color:#6d28d9;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:25px;
+}
+
+.title{
+    font-size:42px;
+    font-weight:800;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:#6b7280;
+    font-size:20px;
+    line-height:1.5;
+    margin-bottom:30px;
+}
+
+/* CARD */
+.card{
+    background:#fff;
+    border:1px solid #e2e2e2;
+    border-radius:22px;
+    padding:28px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+label{
+    display:block;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+textarea{
+    width:100%;
+    min-height:180px;
+    resize:vertical;
+    border:1px solid #d1d5db;
+    border-radius:15px;
+    padding:18px;
+    font-size:17px;
+    outline:none;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+textarea:focus{
+    border-color:#6d28d9;
+    box-shadow:0 0 0 3px rgba(109,40,217,0.12);
+}
+
+/* OPTIONS */
+.options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    margin-top:25px;
+}
+
+.option{
+    border:1px solid #ddd;
+    border-radius:15px;
+    padding:18px;
+}
+
+select{
+    width:100%;
+    padding:14px;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    font-size:16px;
+    background:#fff;
+}
+
+/* BUTTON */
+.generate{
+    width:100%;
+    margin-top:25px;
+    border:none;
+    background:#6d28d9;
+    color:#fff;
+    padding:18px;
+    border-radius:15px;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.generate:hover{
+    background:#5b21b6;
+}
+
+/* RESULT */
+.result{
+    margin-top:25px;
+    background:#f9fafb;
+    border:2px dashed #d1d5db;
+    border-radius:18px;
+    min-height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:left;
+    color:#6b7280;
+    padding:25px;
+}
+
+.result-content{
+    width:100%;
+}
+
+.story-title{
+    color:#111827;
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:15px;
+}
+
+.story-text{
+    color:#374151;
+    font-size:17px;
+    line-height:1.8;
+    white-space:pre-line;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+
+    .header{
+        height:100px;
+        padding:0 20px;
+    }
+
+    .logo{
+        font-size:30px;
+    }
+
+    .profile{
+        width:50px;
+        height:50px;
+        font-size:20px;
+    }
+
+    .nav{
+        min-height:70px;
+    }
+
+    .nav a{
+        font-size:17px;
+        padding:14px 16px;
+    }
+
+    .container{
+        padding:25px 18px 50px;
+    }
+
+    .title{
+        font-size:32px;
+    }
+
+    .subtitle{
+        font-size:18px;
+    }
+
+    .options{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="header">
+
+    <div class="logo">
+        StarSun<span>AI</span>
+    </div>
+
+    <div class="profile">
+        S
+    </div>
+
+</header>
+
+
+<!-- NAVIGATION -->
+<nav class="nav">
+
+    <a href="index.html">
+        🏠 Dashboard
+    </a>
+
+    <a href="image.html">
+        🖼️ AI Image
+    </a>
+
+    <a href="video.html">
+        🎬 AI Video
+    </a>
+
+    <a href="story.html" class="active">
+        ✍️ AI Story
+    </a>
+
+    <a href="voice.html">
+        🎙️ AI Voice
+    </a>
+
+    <a href="character.html">
+        👤 Character
+    </a>
+
+    <a href="background.html">
+        🌄 Background
+    </a>
+
+</nav>
+
+
+<!-- MAIN -->
+<main class="container">
+
+    <a href="index.html" class="back">
+        ← Dashboard पर वापस जाएँ
+    </a>
+
+    <h1 class="title">
+        ✍️ AI Story Writer
+    </h1>
+
+    <p class="subtitle">
+        कहानी, स्क्रिप्ट, संवाद और narration तैयार करें।
+    </p>
+
+
+    <section class="card">
+
+        <!-- STORY IDEA -->
+        <label for="storyPrompt">
+            कहानी का विचार
+        </label>
+
+        <textarea
+            id="storyPrompt"
+            placeholder="उदाहरण: एक गरीब किसान की कहानी जो अपनी मेहनत से गाँव में एक बड़ा बदलाव लाता है..."
+        ></textarea>
+
+
+        <!-- OPTIONS -->
+        <div class="options">
+
+            <div class="option">
+
+                <label>
+                    कहानी का प्रकार
+                </label>
+
+                <select id="storyType">
+
+                    <option>मोरल स्टोरी</option>
+                    <option>प्रेरणादायक कहानी</option>
+                    <option>भावनात्मक कहानी</option>
+                    <option>राजा और प्रजा</option>
+                    <option>अकबर-बीरबल</option>
+                    <option>ऐतिहासिक कहानी</option>
+                    <option>पौराणिक कहानी</option>
+                    <option>बच्चों की कहानी</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    भाषा
+                </label>
+
+                <select id="language">
+
+                    <option>हिंदी</option>
+                    <option>हिंग्लिश</option>
+                    <option>English</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    कहानी की लंबाई
+                </label>
+
+                <select id="length">
+
+                    <option>1 मिनट</option>
+                    <option>3 मिनट</option>
+                    <option>5 मिनट</option>
+                    <option>10 मिनट</option>
+                    <option>15 मिनट</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="option">
+
+                <label>
+                    शैली
+                </label>
+
+                <select id="style">
+
+                    <option>सरल और भावनात्मक</option>
+                    <option>देसी अंदाज</option>
+                    <option>सस्पेंस</option>
+                    <option>सिनेमैटिक</option>
+                    <option>मजेदार</option>
+                    <option>डॉक्यूमेंट्री</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- GENERATE -->
+        <button class="generate" onclick="generateStory()">
+            ✨ Generate Story
+        </button>
+
+
+        <!-- RESULT -->
+        <div class="result" id="result">
+
+            <div style="width:100%;text-align:center;">
+
+                <div style="font-size:55px;">
+                    ✍️
+                </div>
+
+                <br>
+
+                <strong>
+                    आपकी कहानी यहाँ दिखाई देगी
+                </strong>
+
+                <br><br>
+
+                कहानी का विचार लिखकर
+                <b>Generate Story</b> दबाएँ।
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+function generateStory(){
+
+    const prompt =
+        document.getElementById("storyPrompt")
+        .value
+        .trim();
+
+    const type =
+        document.getElementById("storyType")
+        .value;
+
+    const language =
+        document.getElementById("language")
+        .value;
+
+    const length =
+        document.getElementById("length")
+        .value;
+
+    const style =
+        document.getElementById("style")
+        .value;
+
+    const result =
+        document.getElementById("result");
+
+
+    if(!prompt){
+
+        result.innerHTML = `
+
+            <div style="width:100%;text-align:center;">
+
+                <div style="font-size:45px;">
+                    ⚠️
+                </div>
+
+                <br>
+
+                पहले कहानी का विचार लिखिए।
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    result.innerHTML = `
+
+        <div class="result-content">
+
+            <div style="font-size:45px;">
+                ⏳
+            </div>
+
+            <br>
+
+            <div class="story-title">
+                कहानी तैयार की जा रही है...
+            </div>
+
+            <div class="story-text">
+
+                कहानी का प्रकार: ${type}
+
+                भाषा: ${language}
+
+                लंबाई: ${length}
+
+                शैली: ${style}
+
+                <br>
+
+                आपका विषय:
+
+                ${prompt}
+
+                <br><br>
+
+                वास्तविक AI Story Generation के लिए
+                बाद में AI API जोड़ी जाएगी।
+
+            </div>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+</html>
